@@ -9,7 +9,7 @@
 } );
 </script>
 @stop
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('content')
 <div class="row">
@@ -83,8 +83,14 @@
                           <td>
                           @if($data->status == 'pinjam')
                             <label class="badge badge-warning">Pinjam</label>
-                          @else
+                          @elseif($data->status == 'kembali')
                             <label class="badge badge-success">Kembali</label>
+                          @elseif($data->status == 'hilang')
+                            <label class="badge badge-danger">Hilang</label>
+                          @elseif($data->status == 'rusak')
+                            <label class="badge badge-warning">Rusak</label>
+                           @elseif($data->status == 'diganti')
+                            <label class="badge badge-success">Diganti</label>
                           @endif
                           </td>
                           <td>
@@ -99,6 +105,21 @@
                             {{ csrf_field() }}
                             {{ method_field('put') }}
                             <button class="dropdown-item" onclick="return confirm('Anda yakin data ini sudah kembali?')"> Sudah Kembali
+                            </button>
+                          </form>
+                          <form action="{{ route('transaksi.hilang', $data->id) }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <button class="dropdown-item" onclick="return confirm('Anda yakin data ini hilang?')"> Hilang
+                            </button>
+                          </form>
+                          <form action="{{ route('transaksi.rusak', $data->id) }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <button class="dropdown-item" onclick="return confirm('Anda yakin data ini rusak?')"> Rusak
+                            </button>
+                          </form>
+                          <form action="{{ route('transaksi.diganti', $data->id) }}" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <button class="dropdown-item" onclick="return confirm('Anda yakin data ini diganti?')"> Diganti
                             </button>
                           </form>
                           @endif

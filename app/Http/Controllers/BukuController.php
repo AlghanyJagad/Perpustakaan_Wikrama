@@ -163,10 +163,9 @@ class BukuController extends Controller
                 'harga_buku' => $request->get('harga_buku'),
                 'tingkat_kelas' => $request->get('tingkat_kelas'),
                 'file_buku' => $file_buku,
-                
             ]);
 
-        alert()->success('Berhasil.','Data telah ditambahkan!');
+        alert::success('Berhasil.','Data telah ditambahkan!');
 
         return redirect()->route('buku.index');
     }
@@ -177,7 +176,7 @@ class BukuController extends Controller
      * @param  \App\Buku  $buku
      * @return \Illuminate\Http\Response
      */
-    public function show(Buku $buku)
+    public function show($id)
     {
         /*if(Auth::user()->level == 'user') {
                 Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
@@ -195,7 +194,7 @@ class BukuController extends Controller
      * @param  \App\Buku  $buku
      * @return \Illuminate\Http\Response
      */
-    public function edit(Buku $buku)
+    public function edit($id)
     {
         if(Auth::user()->level == 'user') {
             Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
@@ -213,7 +212,7 @@ class BukuController extends Controller
      * @param  \App\Buku  $buku
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Buku $buku)
+    public function update(Request $request, $id)
     {
         if($request->file('cover')) {
             $file = $request->file('cover');
@@ -274,7 +273,7 @@ class BukuController extends Controller
      * @param  \App\Buku  $buku
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Buku $buku)
+    public function destroy($id)
     {
         Buku::find($id)->delete();
         alert()->success('Berhasil.','Data telah dihapus!');

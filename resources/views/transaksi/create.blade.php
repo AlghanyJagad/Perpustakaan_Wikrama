@@ -22,7 +22,7 @@
 @section('css')
 
 @stop
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('content')
 

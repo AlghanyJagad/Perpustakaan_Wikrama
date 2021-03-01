@@ -31,7 +31,7 @@ $(document).ready(function() {
         </script>
 @stop
 
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('content')
 
@@ -68,6 +68,28 @@ $(document).ready(function() {
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('kode_buku') ? ' has-error' : '' }}">
+                            <label for="kode_buku" class="col-md-4 control-label">Kode Buku</label>
+                            <div class="col-md-6">
+                                <input id="kode_buku" type="text" class="form-control" name="kode_buku" value="{{ $data->kode_buku }}" required>
+                                @if ($errors->has('kode_buku'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('kode_buku') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('no_panggil') ? ' has-error' : '' }}">
+                            <label for="no_panggil" class="col-md-4 control-label">No Panggil</label>
+                            <div class="col-md-6">
+                                <input id="no_panggil" type="text" class="form-control" name="no_panggil" value="{{ $data->no_panggil }}" required>
+                                @if ($errors->has('no_panggil'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('no_panggil') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('pengarang') ? ' has-error' : '' }}">
                             <label for="pengarang" class="col-md-4 control-label">Pengarang</label>
                             <div class="col-md-6">
@@ -75,6 +97,17 @@ $(document).ready(function() {
                                 @if ($errors->has('pengarang'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('pengarang') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('edisi') ? ' has-error' : '' }}">
+                            <label for="edisi" class="col-md-4 control-label">Edisi</label>
+                            <div class="col-md-6">
+                                <input id="edisi" type="text" class="form-control" name="edisi" value="{{ $data->edisi }}" required>
+                                @if ($errors->has('edisi'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('edisi') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -90,6 +123,17 @@ $(document).ready(function() {
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('kota_terbit') ? ' has-error' : '' }}">
+                            <label for="kota_terbit" class="col-md-4 control-label">Kota Terbit</label>
+                            <div class="col-md-6">
+                                <input id="kota_terbit" type="text" class="form-control" name="kota_terbit" value="{{ $data->kota_terbit }}" required>
+                                @if ($errors->has('kota_terbit'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('kota_terbit') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('tahun_terbit') ? ' has-error' : '' }}">
                             <label for="tahun_terbit" class="col-md-4 control-label">Tahun Terbit</label>
                             <div class="col-md-6">
@@ -97,6 +141,28 @@ $(document).ready(function() {
                                 @if ($errors->has('tahun_terbit'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('tahun_terbit') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('kolasi') ? ' has-error' : '' }}">
+                            <label for="kolasi" class="col-md-4 control-label">Kolasi</label>
+                            <div class="col-md-6">
+                                <input id="kolasi" type="text" class="form-control" name="kolasi" value="{{ $data->kolasi }}" required>
+                                @if ($errors->has('kolasi'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('kolasi') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('sumber_buku') ? ' has-error' : '' }}">
+                            <label for="sumber_buku" class="col-md-4 control-label">Sumber Buku</label>
+                            <div class="col-md-6">
+                                <input id="sumber_buku" type="text" class="form-control" name="sumber_buku" value="{{ $data->sumber_buku }}" required>
+                                @if ($errors->has('sumber_buku'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('sumber_buku') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -112,18 +178,50 @@ $(document).ready(function() {
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('deskripsi') ? ' has-error' : '' }}">
-                            <label for="deskripsi" class="col-md-4 control-label">Deskripsi</label>
-                            <div class="col-md-12">
-                                <input id="deskripsi" type="text" class="form-control" name="deskripsi" value="{{ $data->deskripsi }}" >
-                                @if ($errors->has('deskripsi'))
+                        <div class="form-group{{ $errors->has('lokasi') ? ' has-error' : '' }}">
+                            <label for="lokasi" class="col-md-4 control-label">lokasi</label>
+                            <div class="col-md-6">
+                            <select class="form-control" name="lokasi" required="">
+                                <option value=""></option>
+                                <option value="SMK Wikrama Bogor"{{$data->lokasi === "SMK Wikrama Bogor" ? "selected" : ""}}>SMK Wikrama Bogor</option>
+                                <option value="SMK Wikrama Garut"{{$data->lokasi === "SMK Wikrama Garut" ? "selected" : ""}}>SMK Wikrama Garut</option>
+                                <option value="SMK Wikrama Palembang"{{$data->lokasi === "SMK Wikrama Palembang" ? "selected" : ""}}>SMK Wikrama Palembang</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('kata_kunci') ? ' has-error' : '' }}">
+                            <label for="kata_kunci" class="col-md-4 control-label">Kata Kunci</label>
+                            <div class="col-md-6">
+                                <input id="kata_kunci" type="text" class="form-control" name="kata_kunci" value="{{ $data->kata_kunci }}" required>
+                                @if ($errors->has('kata_kunci'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('deskripsi') }}</strong>
+                                        <strong>{{ $errors->first('kata_kunci') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-
+                        <div class="form-group{{ $errors->has('ringkasan') ? ' has-error' : '' }}">
+                            <label for="ringkasan" class="col-md-4 control-label">Ringkasan</label>
+                            <div class="col-md-12">
+                                <textarea id="ringkasan" class="form-control" name="ringkasan" value="{{ $data->ringkasan }}">{{ $data->ringkasan }}</textarea>
+                                @if ($errors->has('ringkasan'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('ringkasan') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('daftar_isi') ? ' has-error' : '' }}">
+                            <label for="daftar_isi" class="col-md-4 control-label">Daftar Isi</label>
+                            <div class="col-md-12">
+                                <textarea id="daftar_isi" class="form-control" name="daftar_isi" value="{{ $data->daftar_isi }}">{{ $data->daftar_isi }}</textarea>
+                                @if ($errors->has('daftar_isi'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('daftar_isi') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('lokasi') ? ' has-error' : '' }}">
                             <label for="lokasi" class="col-md-4 control-label">Lokasi</label>
                             <div class="col-md-6">
@@ -134,12 +232,77 @@ $(document).ready(function() {
                             </select>
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('status_pinjam') ? ' has-error' : '' }}">
+                            <label for="status_pinjam" class="col-md-4 control-label">Status Pinjam</label>
+                            <div class="col-md-6">
+                            <select class="form-control" name="status_pinjam" required="">
+                                <option value=""></option>
+                                <option value="boleh" {{$data->status_pinjam === "boleh" ? "selected" : ""}}>Boleh</option>
+                                <option value="tidak" {{$data->status_pinjam === "tidak" ? "selected" : ""}}>Tidak</option>
+                            </select>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">Cover</label>
                             <div class="col-md-6">
                                 <img width="200" height="200" @if($data->cover) src="{{ asset('images/buku/'.$data->cover) }}" @endif />
                                 <input type="file" class="uploads form-control" style="margin-top: 20px;" name="cover">
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('kondisi') ? ' has-error' : '' }}">
+                            <label for="kondisi" class="col-md-4 control-label">Kondisi</label>
+                            <div class="col-md-6">
+                            <select class="form-control" name="kondisi" required="">
+                                <option value=""></option>
+                                <option value="Baik" {{$data->kondisi === "Baik" ? "selected" : ""}}>Baik</option>
+                                <option value="Rusak" {{$data->kondisi === "Rusak" ? "selected" : ""}}>Rusak</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('tingkat_kelas') ? ' has-error' : '' }}">
+                            <label for="tingkat_kelas" class="col-md-4 control-label">Tingkat Kelas</label>
+                            <div class="col-md-6">
+                            <select class="form-control" name="tingkat_kelas" required="">
+                                <option value=""></option>
+                                <option value="XII" {{$data->tingkat_kelas === "XII" ? "selected" : ""}}>XII</option>
+                                <option value="XI" {{$data->tingkat_kelas === "XI" ? "selected" : ""}}>XI</option>
+                                <option value="X" {{$data->tingkat_kelas === "X" ? "selected" : ""}}>X</option>
+                                <option value="Umum" {{$data->tingkat_kelas === "Umum" ? "selected" : ""}}>Umum</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('kategori') ? ' has-error' : '' }}">
+                            <label for="kategori" class="col-md-4 control-label">Kategori</label>
+                            <div class="col-md-6">
+                                <input id="kategori" type="text" class="form-control" name="kategori" value="{{ $data->kategori }}" required>
+                                @if ($errors->has('kategori'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('kategori') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('harga_buku') ? ' has-error' : '' }}">
+                            <label for="harga_buku" class="col-md-4 control-label">Harga Buku</label>
+                            <div class="col-md-6">
+                                <input id="harga_buku" type="text" class="form-control" name="harga_buku" value="{{ $data->harga_buku }}" required>
+                                @if ($errors->has('harga_buku'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('harga_buku') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="file_buku" class="col-md-4 control-label">File Buku</label>
+                            <div class="col-md-6">
+                                <img width="200" height="200" @if($data->file_buku) src="{{ asset('uploads/'.$data->file_buku) }}" @endif />
+                                <input type="file" class="uploads form-control" style="margin-top: 20px;" name="file_buku">
                             </div>
                         </div>
 

@@ -50,8 +50,8 @@ class AnggotaController extends Controller
 
         $users = User::WhereNotExists(function($query) {
                         $query->select(DB::raw(1))
-                        ->from('anggota')
-                        ->whereRaw('anggota.user_id = users.id');
+                        ->from('anggotas')
+                        ->whereRaw('anggotas.user_id = users.id');
                      })->get();
         return view('anggota.create', compact('users'));
     }
@@ -69,12 +69,12 @@ class AnggotaController extends Controller
         if($count>0){
             Session::flash('message', 'Already exist!');
             Session::flash('message_type', 'danger');
-            return redirect()->to('anggota');
+            return redirect()->to('anggotas');
         }
 
         $this->validate($request, [
             'nama' => 'required|string|max:255',
-            'nis' => 'required|string|max:20|unique:anggota'
+            'nis' => 'required|string|max:20|unique:anggotas'
         ]);
 
         Anggota::create($request->all());
@@ -89,7 +89,7 @@ class AnggotaController extends Controller
      * @param  \App\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function show(Anggota $anggota)
+    public function show(Anggota $anggota, $id)
     {
         if((Auth::user()->level == 'user') && (Auth::user()->id != $id)) {
                 Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
@@ -107,7 +107,7 @@ class AnggotaController extends Controller
      * @param  \App\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function edit(Anggota $anggota)
+    public function edit(Anggota $anggota, $id)
     {
         if((Auth::user()->level == 'user') && (Auth::user()->id != $id)) {
                 Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
@@ -126,7 +126,7 @@ class AnggotaController extends Controller
      * @param  \App\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Anggota $anggota)
+    public function update(Request $request, Anggota $anggota, $id)
     {
         Anggota::find($id)->update($request->all());
 
@@ -140,7 +140,7 @@ class AnggotaController extends Controller
      * @param  \App\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Anggota $anggota)
+    public function destroy(Anggota $anggota, $id)
     {
         Anggota::find($id)->delete();
         alert()->success('Berhasil.','Data telah dihapus!');

@@ -19,8 +19,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-Route::get('/logout', 'Auth\LoginController@logout');
-Route::post('/logout', 'Auth\LoginController@logout');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -36,10 +34,17 @@ Route::resource('user', 'UserController');
 Route::resource('anggota', 'AnggotaController');
 
 Route::resource('buku', 'BukuController');
-Route::get('/format_buku', 'BukuController@format');
-Route::post('/import_buku', 'BukuController@import');
 
+Route::post('transaksi/hilang/{id}', 'TransaksiController@hilang')->name('transaksi.hilang');
+Route::get('transaksi/hilang/{id}', 'TransaksiController@hilang');
+
+Route::post('transaksi/rusak/{id}', 'TransaksiController@rusak')->name('transaksi.rusak');
+Route::get('transaksi/rusak/{id}', 'TransaksiController@rusak');
+
+Route::post('transaksi/diganti/{id}', 'TransaksiController@diganti')->name('transaksi.diganti');
+Route::get('transaksi/diganti/{id}', 'TransaksiController@diganti');
 Route::resource('transaksi', 'TransaksiController');
+
 Route::get('/laporan/trs', 'LaporanController@transaksi');
 Route::get('/laporan/trs/pdf', 'LaporanController@transaksiPdf');
 Route::get('/laporan/trs/excel', 'LaporanController@transaksiExcel');

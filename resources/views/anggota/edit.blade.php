@@ -9,7 +9,7 @@ $(document).ready(function() {
 </script>
 @stop
 
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('content')
 
@@ -35,36 +35,13 @@ $(document).ready(function() {
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('npm') ? ' has-error' : '' }}">
-                            <label for="npm" class="col-md-4 control-label">NPM</label>
+                        <div class="form-group{{ $errors->has('nis') ? ' has-error' : '' }}">
+                            <label for="nis" class="col-md-4 control-label">NIS</label>
                             <div class="col-md-6">
-                                <input id="npm" type="number" class="form-control" name="npm" value="{{ $data->npm }}" maxlength="8" required>
-                                @if ($errors->has('npm'))
+                                <input id="nis" type="number" class="form-control" name="nis" value="{{ $data->nis }}" maxlength="8" required>
+                                @if ($errors->has('nis'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('npm') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('tempat_lahir') ? ' has-error' : '' }}">
-                            <label for="tempat_lahir" class="col-md-4 control-label">Tempat Lahir</label>
-                            <div class="col-md-6">
-                                <input id="tempat_lahir" type="text" class="form-control" name="tempat_lahir" value="{{ $data->tempat_lahir }}" required>
-                                @if ($errors->has('tempat_lahir'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('tempat_lahir') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('tgl_lahir') ? ' has-error' : '' }}">
-                            <label for="tgl_lahir" class="col-md-4 control-label">Tanggal Lahir</label>
-                            <div class="col-md-6">
-                                <input id="tgl_lahir" type="date" class="form-control" name="tgl_lahir" value="{{ $data->tgl_lahir }}" required>
-                                @if ($errors->has('tgl_lahir'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('tgl_lahir') }}</strong>
+                                        <strong>{{ $errors->first('nis') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -81,14 +58,14 @@ $(document).ready(function() {
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('prodi') ? ' has-error' : '' }}">
-                            <label for="prodi" class="col-md-4 control-label">Prodi</label>
+                        <div class="form-group{{ $errors->has('jurusan') ? ' has-error' : '' }}">
+                            <label for="jurusan" class="col-md-4 control-label">jurusan</label>
                             <div class="col-md-6">
-                            <select class="form-control" name="prodi" required="">
+                            <select class="form-control" name="jurusan" required="">
                                 <option value=""></option>
-                                <option value="TI" {{$data->prodi === "TI" ? "selected" : ""}} >Teknik Informatika</option>
-                                <option value="SI" {{$data->prodi === "SI" ? "selected" : ""}} >Sistem Informasi</option>
-                                <option value="KM" {{$data->prodi === "KM" ? "selected" : ""}} >Kesehatan Masyarakat</option>
+                                <option value="RPL" {{$data->jurusan === "RPL" ? "selected" : ""}} >Rekayasa Perangkat Lunak</option>
+                                <option value="TKJ" {{$data->jurusan === "TKJ" ? "selected" : ""}} >Teknik Komputer Jaringan</option>
+                                <option value="MMD" {{$data->jurusan === "MMD" ? "selected" : ""}} >Multimedia</option>
                             </select>
                             </div>
                         </div>

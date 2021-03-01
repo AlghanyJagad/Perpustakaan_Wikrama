@@ -14,7 +14,7 @@
 <div class="row">
 
   <div class="col-lg-2">
-    <a href="{{ route('anggota.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Anggota</a>
+    <a href="{{ route('user.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah User</a>
   </div>
     <div class="col-lg-12">
                   @if (Session::has('message'))
@@ -27,23 +27,23 @@
               <div class="card">
 
                 <div class="card-body">
-                  <h4 class="card-title">Data Anggota</h4>
+                  <h4 class="card-title">Data User</h4>
                   
                   <div class="table-responsive">
-                    <table class="table table-striped" id="table">
+                    <table id="table" class="table table-striped">
                       <thead>
                         <tr>
                           <th>
-                            Nama
+                            Name
                           </th>
                           <th>
-                            NIS
+                            Username
                           </th>
                           <th>
-                            Jurusan
+                            Email
                           </th>
                           <th>
-                            Jenis Kelamin
+                            Created At
                           </th>
                           <th>
                             Action
@@ -54,31 +54,26 @@
                       @foreach($datas as $data)
                         <tr>
                           <td class="py-1">
-                          @if($data->user->gambar)
-                            <img src="{{url('images/user', $data->user->gambar)}}" alt="image" style="margin-right: 10px;" />
+                          @if($data->gambar)
+                            <img src="{{url('images/user', $data->gambar)}}" alt="image" style="margin-right: 10px;" />
                           @else
                             <img src="{{url('images/user/default.png')}}" alt="image" style="margin-right: 10px;" />
+
                           @endif
 
-                            {{$data->nama}}
+
+                            {{$data->name}}
                           </td>
                           <td>
-                          <a href="{{route('anggota.show', $data->id)}}"> 
-                            {{$data->nis}}
+                          <a href="{{route('user.show', $data->id)}}"> 
+                          {{$data->username}}
                           </a>
                           </td>
-
                           <td>
-                          @if($data->jurusan == 'RPL')
-                            Rekayasa Perangkat Lunak
-                          @elseif($data->jurusan == 'TKJ')
-                            Teknik Komputer Jaringan
-                          @else
-                            Multimedia
-                          @endif
+                            {{$data->email}}
                           </td>
                           <td>
-                            {{$data->jk === "L" ? "Laki - Laki" : "Perempuan"}}
+                            {{$data->created_at}}
                           </td>
                           <td>
                            <div class="btn-group dropdown">
@@ -86,8 +81,8 @@
                             Action
                           </button>
                           <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 30px, 0px);">
-                            <a class="dropdown-item" href="{{route('anggota.edit', $data->id)}}"> Edit </a>
-                            <form action="{{ route('anggota.destroy', $data->id) }}" class="pull-left"  method="post">
+                            <a class="dropdown-item" href="{{route('user.edit', $data->id)}}"> Edit </a>
+                            <form action="{{ route('user.destroy', $data->id) }}" class="pull-left"  method="post">
                             {{ csrf_field() }}
                             {{ method_field('delete') }}
                             <button class="dropdown-item" onclick="return confirm('Anda yakin ingin menghapus data ini?')"> Delete
@@ -102,7 +97,7 @@
                       </tbody>
                     </table>
                   </div>
-               {{--  {!! $datas->links() !!} --}}
+                  {{-- {!! $datas->links() !!} --}}
                 </div>
               </div>
             </div>

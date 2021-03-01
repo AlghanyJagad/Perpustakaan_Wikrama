@@ -113,7 +113,7 @@ class TransaksiController extends Controller
      * @param  \App\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaksi $transaksi)
+    public function show(Transaksi $transaksi, $id)
     {
         $data = Transaksi::findOrFail($id);
 
@@ -131,7 +131,7 @@ class TransaksiController extends Controller
      * @param  \App\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Transaksi $transaksi)
+    public function edit(Transaksi $transaksi, $id)
     {
         $data = Transaksi::findOrFail($id);
 
@@ -150,7 +150,7 @@ class TransaksiController extends Controller
      * @param  \App\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaksi $transaksi)
+    public function update(Request $request, $id)
     {
         $transaksi = Transaksi::find($id);
 
@@ -173,10 +173,61 @@ class TransaksiController extends Controller
      * @param  \App\Transaksi  $transaksi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Transaksi $transaksi)
+    public function destroy(Transaksi $transaksi, $id)
     {
         Transaksi::find($id)->delete();
         alert()->success('Berhasil.','Data telah dihapus!');
+        return redirect()->route('transaksi.index');
+    }
+
+    public function hilang(Request $request, $id)
+    {
+        $transaksi = Transaksi::find($id);
+
+        $transaksi->update([
+                'status' => 'hilang'
+                ]);
+
+        $transaksi->buku->where('id', $transaksi->buku->id)
+                        ->update([
+                            'jumlah_buku' => ($transaksi->buku->jumlah_buku - 1),
+                            ]);
+
+        alert()->success('Berhasil.','Data telah diubah!');
+        return redirect()->route('transaksi.index');
+    }
+
+    public function rusak(Request $request, $id)
+    {
+        $transaksi = Transaksi::find($id);
+
+        $transaksi->update([
+                'status' => 'rusak'
+                ]);
+
+        $transaksi->buku->where('id', $transaksi->buku->id)
+                        ->update([
+                            'jumlah_buku' => ($transaksi->buku->jumlah_buku - 1),
+                            ]);
+
+        alert()->success('Berhasil.','Data telah diubah!');
+        return redirect()->route('transaksi.index');
+    }
+
+    public function diganti(Request $request, $id)
+    {
+        $transaksi = Transaksi::find($id);
+
+        $transaksi->update([
+                'status' => 'diganti'
+                ]);
+
+        $transaksi->buku->where('id', $transaksi->buku->id)
+                        ->update([
+                            'jumlah_buku' => ($transaksi->buku->jumlah_buku + 1),
+                            ]);
+
+        alert()->success('Berhasil.','Data telah diubah!');
         return redirect()->route('transaksi.index');
     }
 }

@@ -8,7 +8,7 @@
 } );
 </script>
 @stop
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('content')
 <div class="row">
@@ -17,16 +17,6 @@
     <a href="{{ route('buku.create') }}" class="btn btn-primary btn-rounded btn-fw"><i class="fa fa-plus"></i> Tambah Buku</a>
   </div>
 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-          <form action="{{ url('import_buku') }}" method="post" class="form-inline" enctype="multipart/form-data">
-            {{ csrf_field() }}
-            <div class="input-group {{ $errors->has('importBuku') ? 'has-error' : '' }}">
-              <input type="file" class="form-control" name="importBuku" required="">
-
-              <span class="input-group-btn">
-                              <button type="submit" class="btn btn-success" style="height: 38px;margin-left: -2px;">Import</button>
-                            </span>
-            </div>
-          </form>
 
         </div>
     <div class="col-lg-12">
@@ -41,7 +31,6 @@
 
                 <div class="card-body">
                   <h4 class="card-title pull-left">Data Buku</h4>
-                  <a href="{{url('format_buku')}}" class="btn btn-xs btn-info pull-right">Format Buku</a>
                   <div class="table-responsive">
                     <table class="table table-striped" id="table">
                       <thead>
@@ -60,9 +49,6 @@
                           </th>
                           <th>
                             Stok
-                          </th>
-                          <th>
-                            Rak
                           </th>
                           <th>
                             Action
@@ -96,9 +82,6 @@
                           </td>
                           <td>
                             {{$data->jumlah_buku}}
-                          </td>
-                          <td>
-                            {{$data->lokasi}}
                           </td>
                           <td>
                           <div class="btn-group dropdown">
