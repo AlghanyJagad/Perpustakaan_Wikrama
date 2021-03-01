@@ -188,11 +188,6 @@ class TransaksiController extends Controller
                 'status' => 'hilang'
                 ]);
 
-        $transaksi->buku->where('id', $transaksi->buku->id)
-                        ->update([
-                            'jumlah_buku' => ($transaksi->buku->jumlah_buku - 1),
-                            ]);
-
         alert()->success('Berhasil.','Data telah diubah!');
         return redirect()->route('transaksi.index');
     }
@@ -207,7 +202,7 @@ class TransaksiController extends Controller
 
         $transaksi->buku->where('id', $transaksi->buku->id)
                         ->update([
-                            'jumlah_buku' => ($transaksi->buku->jumlah_buku - 1),
+                            'jumlah_buku' => ($transaksi->buku->jumlah_buku + 1),
                             ]);
 
         alert()->success('Berhasil.','Data telah diubah!');

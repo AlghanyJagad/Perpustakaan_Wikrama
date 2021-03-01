@@ -61,7 +61,7 @@
 <body>
 <h1 class="center">LAPORAN DATA BUKU</h1>
  <table id="pseudo-demo">
-                      <thead>
+                      <thead style="color: black;">
                         <tr>
                           <th>
                             Judul
@@ -82,7 +82,7 @@
                             Stok
                           </th>
                           <th>
-                            Rak
+                            Lokasi
                           </th>
                         </tr>
                       </thead>

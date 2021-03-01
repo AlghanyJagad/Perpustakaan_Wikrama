@@ -226,9 +226,9 @@ $(document).ready(function() {
                             <label for="lokasi" class="col-md-4 control-label">Lokasi</label>
                             <div class="col-md-6">
                             <select class="form-control" name="lokasi" required="">
-                                <option value="rak1" {{$data->lokasi === "rak1" ? "selected" : ""}}>Rak 1</option>
-                                <option value="rak2" {{$data->lokasi === "rak2" ? "selected" : ""}}>Rak 2</option>
-                                <option value="rak3" {{$data->lokasi === "rak3" ? "selected" : ""}}>Rak 3</option>
+                                <option value="SMK Wikrama Bogor" {{$data->lokasi === "SMK Wikrama Bogor" ? "selected" : ""}}>SMK Wikrama Bogor</option>
+                                <option value="SMK Wikrama Garut" {{$data->lokasi === "SMK Wikrama Garut" ? "selected" : ""}}>SMK Wikrama Garut</option>
+                                <option value="SMK Wikrama Palembang" {{$data->lokasi === "SMK Wikrama Palembang" ? "selected" : ""}}>SMK Wikrama Palembang</option>
                             </select>
                             </div>
                         </div>

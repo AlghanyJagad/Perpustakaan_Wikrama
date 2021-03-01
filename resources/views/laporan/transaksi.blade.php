@@ -30,7 +30,7 @@
                             <a class="dropdown-item" href="{{url('laporan/trs/pdf?status=kembali')}}"> Kembali </a>
                           </div>
                         </div>
-                        <div class="btn-group dropdown">
+                       <!-- <div class="btn-group dropdown">
                           <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <b><i class="fa fa-download"></i> Export EXCEL</b>
                           </button>
@@ -39,7 +39,7 @@
                             <a class="dropdown-item" href="{{url('laporan/trs/excel?status=pinjam')}}"> Pinjam </a>
                             <a class="dropdown-item" href="{{url('laporan/trs/excel?status=kembali')}}"> Kembali </a>
                           </div>
-                        </div>
+                        </div>-->
                 </div>
               </div>
             </div>

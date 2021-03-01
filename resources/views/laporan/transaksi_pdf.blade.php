@@ -130,10 +130,16 @@
                             {{date('d/m/y', strtotime($data->tgl_kembali))}}
                           </td>
                           <td>
-                          @if($data->status == 'pinjam')
+                            @if($data->status == 'pinjam')
                             <label class="badge badge-warning">Pinjam</label>
-                          @else
+                          @elseif($data->status == 'kembali')
                             <label class="badge badge-success">Kembali</label>
+                          @elseif($data->status == 'hilang')
+                            <label class="badge badge-danger">Hilang</label>
+                          @elseif($data->status == 'rusak')
+                            <label class="badge badge-warning">Rusak</label>
+                           @elseif($data->status == 'diganti')
+                            <label class="badge badge-success">Diganti</label>
                           @endif
                           </td>
                         </tr>
