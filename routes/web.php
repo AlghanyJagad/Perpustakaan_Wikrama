@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+Route::get('/logout', 'Auth\LoginController@logout');
+Route::post('/logout', 'Auth\LoginController@logout');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index');
@@ -45,7 +48,3 @@ Route::get('/laporan/buku', 'LaporanController@buku');
 Route::get('/laporan/buku/pdf', 'LaporanController@bukuPdf');
 Route::get('/laporan/buku/excel', 'LaporanController@bukuExcel');
 
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
