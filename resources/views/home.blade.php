@@ -98,9 +98,21 @@
               <div class="card">
 
                 <div class="card-body">
-                  <h4 class="card-title">Data Transaksi sedang pinjam</h4>
-                  
-                  <div class="table-responsive">
+                    <h4 class="card-title">Data Transaksi sedang pinjam
+                      <div class="col-sm-4 mb-2 lg-4" style="float: right;">
+                        <form action="/" method="post">
+                          @csrf
+                          <select class="form-control" name="sort" id="sort" onchange="this.form.submit()">
+                            <option  value="">{{$sortby}}</option>
+                            <option  value="tahunini">Kembali Tahun ini</option>
+                            <option  value="bulanini">Kembali Bulan ini</option>
+                            <option  value="hariini">Kembali Hari ini</option>
+                          </select>
+                        </form>
+                      </div>
+                    </h4>
+
+                  <div class="table-responsive" style="margin-top: 10px;">
                     <table class="table table-striped" id="table">
                       <thead>
                         <tr>
@@ -117,14 +129,16 @@
                             Tgl Pinjam
                           </th>
                           <th>
-                            Tgl Kembali
+                            Tgl Harus Kembali
                           </th>
                           <th>
                             Status
                           </th>
+                          @if(Auth::user()->level == 'admin')
                           <th>
                             Action
                           </th>
+                          @endif
                         </tr>
                       </thead>
                       <tbody>
@@ -158,14 +172,44 @@
                           @endif
                           </td>
                           <td>
-                          <form action="{{ route('transaksi.update', $data->id) }}" method="post" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            {{ method_field('put') }}
-                            <button class="btn btn-info btn-sm" onclick="return confirm('Anda yakin data ini sudah kembali?')">Sudah Kembali
+                            @if(Auth::user()->level == 'admin')
+                            <div class="btn-group dropdown">
+                            <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Action
                             </button>
-                          </form>
-                          
+                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 30px, 0px);">
+                            @if($data->status == 'pinjam')
+                            <form action="{{ route('transaksi.update', $data->id) }}" method="post" enctype="multipart/form-data">
+                              {{ csrf_field() }}
+                              {{ method_field('put') }}
+                              <button class="dropdown-item" onclick="return confirm('Anda yakin data ini sudah kembali?')"> Sudah Kembali
+                              </button>
+                            </form>
+                            <form action="{{ route('transaksi.hilang', $data->id) }}" method="post" enctype="multipart/form-data">
+                              {{ csrf_field() }}
+                              <button class="dropdown-item" onclick="return confirm('Anda yakin data ini hilang?')"> Hilang
+                              </button>
+                            </form>
+                            <form action="{{ route('transaksi.rusak', $data->id) }}" method="post" enctype="multipart/form-data">
+                              {{ csrf_field() }}
+                              <button class="dropdown-item" onclick="return confirm('Anda yakin data ini rusak?')"> Rusak
+                              </button>
+                            </form>
+                            <form action="{{ route('transaksi.diganti', $data->id) }}" method="post" enctype="multipart/form-data">
+                              {{ csrf_field() }}
+                              <button class="dropdown-item" onclick="return confirm('Anda yakin data ini diganti?')"> Diganti
+                              </button>
+                              <form action="{{ route('transaksi.destroy', $data->id) }}" class="pull-left"  method="post">
+                              {{ csrf_field() }}
+                              {{ method_field('delete') }}
+                              <button class="dropdown-item" onclick="return confirm('Anda yakin ingin menghapus data ini?')"> Delete
+                              </button>
+                            </form>
+                            </div>
+                          </div>
+                        @endif
                           </td>
+                          @endif
                         </tr>
                       @endforeach
                       </tbody>
