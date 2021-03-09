@@ -40,7 +40,7 @@
                     @endif
 
 					<span class="login100-form-title">
-						{{ __('Login') }}
+						{{ __('Login Perpustakaan') }}
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">

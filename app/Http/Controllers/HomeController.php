@@ -30,16 +30,18 @@ class HomeController extends Controller
         $transaksi = Transaksi::get();
         $anggota   = Anggota::get();
         $buku      = Buku::get();
+        $sortby = "Sort By";
+
         if(Auth::user()->level == 'user')
         {
-            $datas = Transaksi::where('status', 'pinjam')
-                    ->where('anggota_id', Auth::user()->anggota->id)
-                    ->get();
+            $datas = Buku::get();
+
+            return view('user.index', compact('transaksi', 'anggota', 'buku', 'datas', 'sortby'));
         } 
         else {
             $datas = Transaksi::where('status', 'pinjam')->get();
+            return view('home', compact('transaksi', 'anggota', 'buku', 'datas', 'sortby'));
         }
-        return view('home', compact('transaksi', 'anggota', 'buku', 'datas'));
     }
 
     public function show(Request $request)
@@ -132,5 +134,17 @@ class HomeController extends Controller
             }
         }
         return view('home', compact('transaksi', 'anggota', 'buku', 'datas', 'sortby'));
+    }
+
+    public function deskripsi($id)
+    {
+        $transaksi = Transaksi::get();
+        $anggota   = Anggota::get();
+        $buku      = Buku::get();
+        $sortby = "Sort By";
+
+        $data = Buku::findOrFail($id);
+
+        return view('user.deskripsi', compact('transaksi', 'anggota', 'buku', 'data', 'sortby'));
     }
 }
