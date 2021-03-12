@@ -26,6 +26,10 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::post('/', 'HomeController@show');
 
 Route::get('deskripsi/{id}','HomeController@deskripsi')->name('deskripsi');
+
+Route::get('cari','HomeController@cari');
+
+Route::get('profile/{id}', 'HomeController@edit')->name('profile');
 /*
 Route::get('/user', 'UserController@index');
 Route::get('/user-register', 'UserController@create');

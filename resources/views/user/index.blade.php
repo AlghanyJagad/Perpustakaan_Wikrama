@@ -18,11 +18,18 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link href="{{asset('tampilanuser/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
 </head>
 
-<body id="page-top">
+<style>
+    body{
+        font-family: Poppins;
+    }
+</style>
+
+<body id="page-top" >
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -31,7 +38,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-            <div id="content">
+            <div id="content" >
                 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -40,8 +47,24 @@
                         <div class="sidebar-brand-icon">
                             <img src="{{asset('tampilanuser/img/logo-wk.png')}}" height="50px" width="50px"></img>
                         </div>
-                        <div class="sidebar-brand-text mx-3">Perpustakaan<sup></sup></div>
+                        <div class="sidebar-brand-text mx-3" >Perpustakaan<sup></sup></div>
                     </a>
+
+                    <!-- Topbar Search -->
+                    <form action="{{ url ('cari')}}" method="GET"
+                    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        @csrf
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2" name="judul">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -73,7 +96,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->name}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" style="font-size: 16px;">{{Auth::user()->name}}</span>
                                 @if(Auth::user()->gambar == '')
                                 <img class="img-profile rounded-circle"  src="{{asset('images/user/default.png')}}" alt="profile image">
                                 @else
@@ -83,7 +106,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{route('profile', Auth::user()->id)}}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -103,22 +126,23 @@
                 </nav>
                 
                     <div class="container">
+                        {{ $datas->links() }}
                         <div class="row">
                             @foreach ($datas as $data)
                             <div class="col-md-4">
                                 <div class="card" style="height: 500px;">
                                     <div class="card-body">
-                                        <img style="margin-left: 80px" @if($data->cover) src="{{ asset('images/buku/'.$data->cover) }}" @endif width="150px" height="200px" alt="">
+                                        <img style="display: block; margin: auto;" @if($data->cover) src="{{ asset('images/buku/'.$data->cover) }}" @endif width="150px" height="200px" alt="">
                                         <div style="height: 90px;">
-                                            <h3 class="card-title" style="margin-top:10px;">{{$data->judul}}</h3>
+                                            <h3 style="margin-top:10px; color: black">{{$data->judul}}</h3>
                                         </div>
-                                        <a href="">{{$data->pengarang}}</a>
+                                        <p style="color: blue; font-size: 16px;">{{$data->pengarang}}</p>
                                         <p>{{$data->tahun_terbit}}</p>
                                     </div>
                                     <div class="card-footer">
                                         <div class="d-flex justify-content-between">
                                             <p>{{$data->no_panggil}}</p>
-                                            <button class="btn btn-default"><a href="{{route('deskripsi', $data->id)}}">Baca</a></button>
+                                            <button class="btn btn-default"><a href="{{route('deskripsi', $data->id)}}">Buka</a></button>
                                         </div>
                                     </div>
                                 </div>
@@ -126,6 +150,20 @@
                             @endforeach
                         </div>
                     </div>
+
+                    <!-- Footer -->
+                    <footer class="footer" style="position: absolute; bottom: 0; align: center;width: 100%;height: 50px;">
+                        <div class="container my-auto">
+                            <div class="copyright text-center my-auto">
+                                <span>Copyright &copy; SMK Wikrama Bogor 2021</span>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- End of Footer -->
+            </div>
+        </div>
+    </div>
+    
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('tampilanuser/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('tampilanuser/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

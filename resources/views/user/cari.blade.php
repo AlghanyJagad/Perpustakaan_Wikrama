@@ -18,12 +18,12 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link href="{{asset('tampilanuser/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
 </head>
 
 <style>
-    @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
     body{
         font-family: Poppins;
     }
@@ -42,13 +42,29 @@
                 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    
-                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('home')}}">
                         <div class="sidebar-brand-icon">
                             <img src="{{asset('tampilanuser/img/logo-wk.png')}}" height="50px" width="50px"></img>
                         </div>
                         <div class="sidebar-brand-text mx-3">Perpustakaan<sup></sup></div>
                     </a>
+
+                    <!-- Topbar Search -->
+                    <form action="{{ url ('cari')}}" method="GET"
+                    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        @csrf
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2" name="judul">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -108,27 +124,46 @@
                         </li>
                     </ul>
                 </nav>
+                
                     <div class="container">
-                        <div class="row">
-                            <div class="col-md-4">
-                                    <div class="card-body">
-                                    	<img @if($data->cover) src="{{ asset('images/buku/'.$data->cover) }}" @endif width="400px" height="500px" alt="">
+                        <a href="{{route('home')}}" class="btn btn-info btn-icon-split" style="margin-bottom: 20px;">
+                            <span class="icon text-white-600">
+                                <i class="fas fa-arrow-left"></i>
+                            </span>
+                            <span class="text">Show All</span>
+                        </a>
+                        @if ($cekdata > 0)
+                            {{ $datas->links() }}
+                            <div class="row">
+                                @foreach ($datas as $data)
+                                <div class="col-md-4">
+                                    <div class="card" style="height: 500px;">
+                                        <div class="card-body">
+                                            <img style="display: block; margin: auto;" @if($data->cover) src="{{ asset('images/buku/'.$data->cover) }}" @endif width="150px" height="200px" alt="">
+                                            <div style="height: 90px;">
+                                                <h3 style="margin-top:10px; color: black">{{$data->judul}}</h3>
+                                            </div>
+                                            <a href="">{{$data->pengarang}}</a>
+                                            <p>{{$data->tahun_terbit}}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="d-flex justify-content-between">
+                                                <p>{{$data->no_panggil}}</p>
+                                                <button class="btn btn-default"><a href="{{route('deskripsi', $data->id)}}">Buka</a></button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div style="float: right; padding-left: 100px; padding-top:50px; width:50%; color: black;">
-                                        <h3 class="card-title" style="margin-top:10px;">{{$data->judul}}</h3>
-    									<p>Penulis <b>{{$data->pengarang}}</b></p>
-                                        <p>Penerbit <b>{{$data->penerbit}}</b></p>
-                                        <p>Tahun Terbit <b>{{$data->tahun_terbit}}</b></p>
-                                        <p style="color:blue;">Sinopsis</p>
-                                        <p>{{$data->ringkasan}}</p>
-                                        <a href="{{route('home')}}"><button class="btn btn-danger">Kembali</button></a>
-                                    </div>
+                                </div>
+                                @endforeach
                             </div>
-                        </div>
+                        @else
+                            <h1 style="text-align: center">Maaf, Buku tidak ditemukan</h1>
+                        @endif
+                        
                     </div>
+
                     <!-- Footer -->
-                    <footer class="sticky-footer" style="position: absolute; bottom: 0; align: center;width: 100%;height: 50px;">
+                    <footer class="footer" style="position: absolute; bottom: 0; align: center;width: 100%;height: 50px;">
                         <div class="container my-auto">
                             <div class="copyright text-center my-auto">
                                 <span>Copyright &copy; SMK Wikrama Bogor 2021</span>
@@ -147,7 +182,7 @@
     <script src="{{asset('tampilanuser/js/sb-admin-2.min.js')}}"></script>
 
     <!-- Page level plugins -->
-    <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
+    <script src="{{asset('tampilanuser/vendor/chart.js/Chart.min.js')}}"></script>
 
     <!-- Page level custom scripts -->
     <script src="{{asset('tampilanuser/js/demo/chart-area-demo.js')}}"></script>

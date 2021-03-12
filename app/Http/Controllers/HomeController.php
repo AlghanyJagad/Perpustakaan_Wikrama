@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Transaksi;
 use App\Anggota;
 use App\Buku;
+use App\User;
 use Auth;
 
 class HomeController extends Controller
@@ -34,7 +35,7 @@ class HomeController extends Controller
 
         if(Auth::user()->level == 'user')
         {
-            $datas = Buku::get();
+            $datas = Buku::paginate(15);
 
             return view('user.index', compact('transaksi', 'anggota', 'buku', 'datas', 'sortby'));
         } 
@@ -146,5 +147,25 @@ class HomeController extends Controller
         $data = Buku::findOrFail($id);
 
         return view('user.deskripsi', compact('transaksi', 'anggota', 'buku', 'data', 'sortby'));
+    }
+    
+    public function cari(Request $request){
+        $judul = $request->judul;
+        $datas = Buku::where('judul','like',"%".$judul."%")->paginate(10);
+        $cekdata = $datas->count();
+
+        return view('user.cari',compact('datas','cekdata'));
+    }
+
+    public function edit($id)
+    {
+        if((Auth::user()->level == 'user') && (Auth::user()->id != $id)) {
+                Alert::info('Oopss..', 'Anda dilarang masuk ke area ini.');
+                return redirect()->to('/');
+        }
+
+        $data = User::findOrFail($id);
+
+        return view('user.profile', compact('data'));
     }
 }
