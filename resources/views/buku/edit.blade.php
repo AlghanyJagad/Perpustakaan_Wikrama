@@ -301,7 +301,7 @@ $(document).ready(function() {
                         <div class="form-group">
                             <label for="file_buku" class="col-md-4 control-label">File Buku</label>
                             <div class="col-md-6">
-                                <img width="200" height="200" @if($data->file_buku) src="{{ asset('uploads/'.$data->file_buku) }}" @endif />
+                                <p>  {{$data->file_buku}} </p>
                                 <input type="file" class="uploads form-control" style="margin-top: 20px;" name="file_buku">
                             </div>
                         </div>

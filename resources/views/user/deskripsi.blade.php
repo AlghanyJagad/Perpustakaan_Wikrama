@@ -122,6 +122,14 @@
                                         <p>Tahun Terbit <b>{{$data->tahun_terbit}}</b></p>
                                         <p style="color:blue;">Sinopsis</p>
                                         <p>{{$data->ringkasan}}</p>
+                                        @if ($data->file_buku != NULL && $data->status_pinjam=="boleh")
+                                            <a href="{{ asset('uploads/'.$data->file_buku) }}" class="btn btn-info btn-icon-split">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-info-circle"></i>
+                                                </span>
+                                                <span class="text">Baca Bukunya</span>
+                                            </a>
+                                        @endif
                                         <a href="{{route('home')}}"><button class="btn btn-danger">Kembali</button></a>
                                     </div>
                             </div>

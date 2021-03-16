@@ -110,32 +110,32 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
+        $cover = null;
+        $file_buku = null;
+
         $this->validate($request, [
             'judul' => 'required|string|max:255',
             'isbn' => 'required|string',
             'kode_buku' => 'required|string'
         ]);
 
-        if($request->file('cover')) {
-            $file = $request->file('cover');
-            $dt = Carbon::now();
-            $acak  = $file->getClientOriginalExtension();
-            $fileName = rand(11111,99999).'-'.$dt->format('Y-m-d-H-i-s').'.'.$acak; 
-            $request->file('cover')->move("images/buku", $fileName);
-            $cover = $fileName;
-        } else {
-            $cover = NULL;
-        }
+        if($request->file('cover') || $request->file('file_buku')){
+             
+            
+            if($request->file('cover')){
+                $fileCover = $request->file('cover');
+                $dt = Carbon::now();
+                $fileNameCover = rand(11111,99999).'-'.$dt->format('Y-m-d-H-i-s').'.'.$fileCover->extension();
+                $fileCover->move("images/buku", $fileNameCover);
+                $cover = $fileNameCover;
+            } 
 
-        if($request->file('file_buku')) {
-            $request->validate([
-                'file' => 'required|mimes:pdf,xlx,csv|max:2048',
-            ]);
-            $fileName = time().'.'.$request->file->extension();  
-            $request->file->move(public_path('uploads'), $fileName);
-            $file_buku = $fileName;
-        } else {
-            $file_buku = NULL;
+            if($request->file('file_buku')){
+                $fileBook = $request->file('file_buku');
+                $fileNameBook = time().'.'.$fileBook->extension();
+                $fileBook->move(public_path('uploads'), $fileNameBook);
+                $file_buku = $fileNameBook;
+            }
         }
 
         Buku::create([
@@ -214,54 +214,101 @@ class BukuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->file('cover')) {
-            $file = $request->file('cover');
-            $dt = Carbon::now();
-            $acak  = $file->getClientOriginalExtension();
-            $fileName = rand(11111,99999).'-'.$dt->format('Y-m-d-H-i-s').'.'.$acak; 
-            $request->file('cover')->move("images/buku", $fileName);
-            $cover = $fileName;
-        } else {
-            $cover = NULL;
-        }
+        if($request->file('cover') || $request->file('file_buku')){
+            
+            if($request->file('cover')) {
+                $file = $request->file('cover');
+                $dt = Carbon::now();
+                $acak  = $file->getClientOriginalExtension();
+                $fileName = rand(11111,99999).'-'.$dt->format('Y-m-d-H-i-s').'.'.$acak; 
+                $request->file('cover')->move("images/buku", $fileName);
+                $cover = $fileName;
 
-        if($request->file('file_buku')) {
-            $request->validate([
-                'file' => 'required|mimes:pdf,xlx,csv|max:2048',
-            ]);
-            $fileName = time().'.'.$request->file->extension();  
-            $request->file->move(public_path('uploads'), $fileName);
-            $file_buku = $fileName;
-        } else {
-            $file_buku = NULL;
-        }
+                Buku::find($id)->update([
+                    'judul' => $request->get('judul'),
+                    'isbn' => $request->get('isbn'),
+                    'kode_buku' => $request->get('kode_buku'),
+                    'no_panggil' => $request->get('no_panggil'),
+                    'pengarang' => $request->get('pengarang'),
+                    'edisi' => $request->get('edisi'),
+                    'penerbit' => $request->get('penerbit'),
+                    'kota_terbit' => $request->get('kota_terbit'),
+                    'tahun_terbit' => $request->get('tahun_terbit'),
+                    'kolasi' => $request->get('kolasi'),
+                    'sumber_buku' => $request->get('sumber_buku'),
+                    'jumlah_buku' => $request->get('jumlah_buku'),
+                    'lokasi' => $request->get('lokasi'),
+                    'kata_kunci' => $request->get('kata_kunci'),
+                    'ringkasan' => $request->get('ringkasan'),
+                    'daftar_isi' => $request->get('daftar_isi'),
+                    'status_pinjam' => $request->get('status_pinjam'),
+                    'cover' => $cover,
+                    'kondisi' => $request->get('kondisi'),
+                    'tingkat_kelas' => $request->get('tingkat_kelas'),
+                    'kategori' => $request->get('kategori'),
+                    'harga_buku' => $request->get('harga_buku'),
+                    'tingkat_kelas' => $request->get('tingkat_kelas'),
+                    ]);
+            }
 
-        Buku::find($id)->update([
-            'judul' => $request->get('judul'),
-            'isbn' => $request->get('isbn'),
-            'kode_buku' => $request->get('kode_buku'),
-            'no_panggil' => $request->get('no_panggil'),
-            'pengarang' => $request->get('pengarang'),
-            'edisi' => $request->get('edisi'),
-            'penerbit' => $request->get('penerbit'),
-            'kota_terbit' => $request->get('kota_terbit'),
-            'tahun_terbit' => $request->get('tahun_terbit'),
-            'kolasi' => $request->get('kolasi'),
-            'sumber_buku' => $request->get('sumber_buku'),
-            'jumlah_buku' => $request->get('jumlah_buku'),
-            'lokasi' => $request->get('lokasi'),
-            'kata_kunci' => $request->get('kata_kunci'),
-            'ringkasan' => $request->get('ringkasan'),
-            'daftar_isi' => $request->get('daftar_isi'),
-            'status_pinjam' => $request->get('status_pinjam'),
-            'cover' => $cover,
-            'kondisi' => $request->get('kondisi'),
-            'tingkat_kelas' => $request->get('tingkat_kelas'),
-            'kategori' => $request->get('kategori'),
-            'harga_buku' => $request->get('harga_buku'),
-            'tingkat_kelas' => $request->get('tingkat_kelas'),
-            'file_buku' => $file_buku,
-            ]);
+            if($request->file('file_buku')) {
+                $fileBook = $request->file('file_buku');
+                $fileNameBook = time().'.'.$fileBook->extension();
+                $fileBook->move(public_path('uploads'), $fileNameBook);
+                $file_buku = $fileNameBook;
+
+                Buku::find($id)->update([
+                    'judul' => $request->get('judul'),
+                    'isbn' => $request->get('isbn'),
+                    'kode_buku' => $request->get('kode_buku'),
+                    'no_panggil' => $request->get('no_panggil'),
+                    'pengarang' => $request->get('pengarang'),
+                    'edisi' => $request->get('edisi'),
+                    'penerbit' => $request->get('penerbit'),
+                    'kota_terbit' => $request->get('kota_terbit'),
+                    'tahun_terbit' => $request->get('tahun_terbit'),
+                    'kolasi' => $request->get('kolasi'),
+                    'sumber_buku' => $request->get('sumber_buku'),
+                    'jumlah_buku' => $request->get('jumlah_buku'),
+                    'lokasi' => $request->get('lokasi'),
+                    'kata_kunci' => $request->get('kata_kunci'),
+                    'ringkasan' => $request->get('ringkasan'),
+                    'daftar_isi' => $request->get('daftar_isi'),
+                    'status_pinjam' => $request->get('status_pinjam'),
+                    'kondisi' => $request->get('kondisi'),
+                    'tingkat_kelas' => $request->get('tingkat_kelas'),
+                    'kategori' => $request->get('kategori'),
+                    'harga_buku' => $request->get('harga_buku'),
+                    'file_buku' => $file_buku,
+                    ]);
+            }
+        }else {
+            Buku::find($id)->update([
+                'judul' => $request->get('judul'),
+                'isbn' => $request->get('isbn'),
+                'kode_buku' => $request->get('kode_buku'),
+                'no_panggil' => $request->get('no_panggil'),
+                'pengarang' => $request->get('pengarang'),
+                'edisi' => $request->get('edisi'),
+                'penerbit' => $request->get('penerbit'),
+                'kota_terbit' => $request->get('kota_terbit'),
+                'tahun_terbit' => $request->get('tahun_terbit'),
+                'kolasi' => $request->get('kolasi'),
+                'sumber_buku' => $request->get('sumber_buku'),
+                'jumlah_buku' => $request->get('jumlah_buku'),
+                'lokasi' => $request->get('lokasi'),
+                'kata_kunci' => $request->get('kata_kunci'),
+                'ringkasan' => $request->get('ringkasan'),
+                'daftar_isi' => $request->get('daftar_isi'),
+                'status_pinjam' => $request->get('status_pinjam'),
+                'cover' => $cover,
+                'kondisi' => $request->get('kondisi'),
+                'tingkat_kelas' => $request->get('tingkat_kelas'),
+                'kategori' => $request->get('kategori'),
+                'harga_buku' => $request->get('harga_buku'),
+                'file_buku' => $file_buku,
+                ]);
+        }
 
         alert()->success('Berhasil.','Data telah diubah!');
         return redirect()->route('buku.index');
