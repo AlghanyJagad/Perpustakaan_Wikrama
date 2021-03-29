@@ -301,12 +301,12 @@ class BukuController extends Controller
                 'ringkasan' => $request->get('ringkasan'),
                 'daftar_isi' => $request->get('daftar_isi'),
                 'status_pinjam' => $request->get('status_pinjam'),
-                'cover' => $cover,
+                // 'cover' => $cover,
                 'kondisi' => $request->get('kondisi'),
                 'tingkat_kelas' => $request->get('tingkat_kelas'),
                 'kategori' => $request->get('kategori'),
                 'harga_buku' => $request->get('harga_buku'),
-                'file_buku' => $file_buku,
+                // 'file_buku' => $file_buku,
                 ]);
         }
 
