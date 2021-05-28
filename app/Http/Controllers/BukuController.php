@@ -326,4 +326,8 @@ class BukuController extends Controller
         alert()->success('Berhasil.','Data telah dihapus!');
         return redirect()->route('buku.index');
     }
+
+    public function bacabuku(){
+        
+    }
 }

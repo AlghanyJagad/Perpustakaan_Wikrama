@@ -39,10 +39,10 @@
 
             <!-- Main Content -->
             <div id="content">
-                
+
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    
+
                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
                         <div class="sidebar-brand-icon">
                             <img src="{{asset('tampilanuser/img/logo-wk.png')}}" height="50px" width="50px"></img>
@@ -97,7 +97,7 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                                
+
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -138,6 +138,7 @@
                                                 </span>
                                                 <span class="text">Baca Bukunya</span>
                                             </a>
+                                            {{-- <iframe src="{{asset('uploads/'.$data->file_buku)}}" width="600" height="400"></iframe> --}}
                                         @endif
                                         <a href="{{route('home')}}"><button class="btn btn-danger">Kembali</button></a>
                                     </div>
